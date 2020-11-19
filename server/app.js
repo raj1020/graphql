@@ -2,11 +2,23 @@ const express = require('express');
 const grapqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-
-
+const {MONGOURI} = require('./keys');
 
 
 const app = express();
+
+mongoose.connect(MONGOURI, {
+    useNewUrlParser:true,
+    useUnifiedTopology: true
+
+});
+
+mongoose.connection.on('connected',()=>{
+    console.log("Successfully conneted to mongodb")
+})
+mongoose.connection.on('error',(err)=>{
+    console.log("Connection Error to Mongodb",err)
+})
 
 app.use('/graphql', grapqlHTTP.graphqlHTTP({
     schema,
