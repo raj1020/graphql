@@ -7,6 +7,7 @@ query {
     books{
         name
         genre
+        id
         author{
             name
             age
@@ -24,13 +25,31 @@ function BookList() {
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
-    console.log(data);
+    //console.log(data.books);
+
+    function displayBooks(){
+        
+       
+            return data.books.map(book => {
+                return(
+                    <li key={ book.id }>
+                        <b>Book name</b>: { book.name }, 
+                        <b>Genre</b>: { book.genre }, 
+                        <b>Author</b>: { book.author.name }, 
+                        <b>Age of Author</b>: { book.author.age }, 
+                    </li>
+                );
+            })
+        
+    }
     return (
         <div>
+
         <ul>
-                     <li>First Item</li>
-                     <li>Second Item</li>
-                 </ul>
+                    { displayBooks() }
+                </ul>
+       
+       
             
         </div>
     )
