@@ -11,10 +11,12 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div>
-     <h1>Here are the things I will do using GRAPHQL</h1>
-     <BookList />
-    </div>
+    <ApolloProvider client={client}>
+      <div>
+      <h1>Here are the things I will do using GRAPHQL</h1>
+      <BookList />
+      </div>
+    </ApolloProvider>
   );
 }
 
